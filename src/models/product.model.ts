@@ -1,4 +1,5 @@
 import { Document, Schema, model } from 'mongoose';
+import { ICategory } from './category.model';
 
 // 🧾 Document
 // here document is an interface, its like blueprint
@@ -16,9 +17,11 @@ export interface IProduct extends Document {
   weight: number;
 
   image: string[];
-  // add category afterwards creating the category table
+
+  category: Schema.Types.ObjectId | ICategory;
+
   description: string;
-  attributes?: Record<string, any>;
+  attributes?: Record<string, string>;
 }
 
 // 🧬 Schema
@@ -35,6 +38,7 @@ export const ProductSchema = new Schema<IProduct>({
   stock: { type: Number, required: true, min: 0, default: 0 },
   weight: { type: Number, min: 0, default: 0 },
   image: { type: [String], default: [] },
+  category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
   description: { type: String },
   attributes: { type: Schema.Types.Mixed, default: {} },
 });

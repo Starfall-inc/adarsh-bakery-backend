@@ -1,4 +1,4 @@
-import { Document, Schema, model } from "mongoose";
+import { Document, Schema, model } from 'mongoose';
 
 /**
  * @typedef {object} Category
@@ -24,4 +24,4 @@ export const CategorySchema = new Schema<ICategory>(
   { timestamps: true },
 );
 
-const Category = model<ICategory>("Category", CategorySchema);
+const Category = model<ICategory>('Category', CategorySchema);
