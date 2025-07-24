@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import connectDB from './config/db';
+import { serverConfig } from './config/server.config';
 
 dotenv.config();
 
@@ -15,11 +17,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  res.send('Hello Peoples!');
+  res.send('Adarsh API version 0.1');
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(serverConfig.port, () => {
+  console.log('https://localhost:' + serverConfig.port);
 });

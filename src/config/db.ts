@@ -1,13 +1,13 @@
 import dotenv from 'dotenv';
 import mongoose, { Connection, MongooseError } from 'mongoose';
-
+import { serverConfig } from './server.config';
 // load the dot env configuration here (scoped to this file only i guess)
 
 dotenv.config();
 
 // getting the mongoDB base string here from the env variable
 
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI = serverConfig.mongoURI;
 
 /**
  * Establishes a connection to the MongoDB database.
