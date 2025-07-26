@@ -15,3 +15,5 @@ export const productZodSchema = z.object({
   description: z.string().optional(),
   attributes: z.record(z.string(), z.string()).optional(),
 });
+
+export type ProductInput = z.infer<typeof productZodSchema>;

@@ -1,12 +1,13 @@
 import Product, { IProduct } from '../models/product.model';
 import Category, { ICategory } from '../models/category.model';
 import NotFoundError from '../errors/NotFoundError';
+import { ProductInput } from '../schemas/product.schema';
 
 class ProductService {
   /**
    * Get all products
    */
-  async getProducts(): Promise<IProduct[]> {
+  public async getProducts(): Promise<IProduct[]> {
     try {
       const products = await Product.find({}).populate({
         path: 'category',
@@ -68,4 +69,37 @@ class ProductService {
       throw new Error('Failed to retrieve products');
     }
   }
+
+  // admin level APIs
+  async createProduct(productData: ProductInput): Promise<IProduct> {
+    try {
+      const category = await Category.findById(productData.category);
+      if (!category) {
+        throw new Error("Failed to create Product, category isn't valid");
+      }
+      const product = await Product.create(productData);
+      return product;
+    } catch {
+      throw new Error('Failed to create product');
+    }
+  }
+
+  async updateProduct(sku: string, productData: Partial<IProduct>) {
+    try {
+      const product = await Product.findOneAndUpdate({ sku: sku }, productData);
+      return product;
+    } catch {
+      throw new Error('IDK, something went wrong');
+    }
+  }
+
+  async deleteProduct(sku: string) {
+    try {
+      await Product.findOneAndDelete({ sku: sku });
+    } catch {
+      throw new Error('Error Deleting Product');
+    }
+  }
 }
+
+export default new ProductService();
