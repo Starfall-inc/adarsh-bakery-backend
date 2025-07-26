@@ -7,7 +7,7 @@ interface ICartItem extends Document {
   quantity: number;
 }
 
-interface ICustomer extends Document {
+export interface ICustomer extends Document {
   firstName: string;
   lastName: string;
   email: string;
@@ -83,3 +83,7 @@ CustomerSchema.pre('save', async function (next) {
 CustomerSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
   return await bcrypt.compare(candidatePassword, this.password);
 };
+
+const Customer = model<ICustomer>('Customer', CustomerSchema);
+
+export default Customer;

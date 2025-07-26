@@ -7,6 +7,7 @@ import connectDB from './config/db';
 import { serverConfig } from './config/server.config';
 import productRoutes from './routes/product.routes';
 import categoryRoutes from './routes/category.routes';
+import customerRoutes from './routes/customer.routes';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/customers', customerRoutes);
 
 app.listen(serverConfig.port, () => {
   console.log('https://localhost:' + serverConfig.port);
