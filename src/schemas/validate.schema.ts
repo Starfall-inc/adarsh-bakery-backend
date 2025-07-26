@@ -2,6 +2,8 @@ import { z } from 'zod';
 import { productZodSchema } from './product.schema';
 import { categorySchema } from './category.schema';
 import { customerSchema } from './customer.schema';
+import { orderSchema } from './order.schema';
+import { transactionSchema } from './transaction.schema';
 
 export const createProductSchema = z.object({
   body: productZodSchema,
@@ -64,5 +66,49 @@ export const loginCustomerSchema = z.object({
   body: z.object({
     email: z.string().email(),
     password: z.string(),
+  }),
+});
+
+export const createOrderSchema = z.object({
+  body: orderSchema,
+});
+
+export const updateOrderStatusSchema = z.object({
+  params: z.object({
+    id: z.string(),
+  }),
+  body: z.object({
+    status: z.enum(['pending', 'processing', 'shipped', 'delivered', 'cancelled']),
+  }),
+});
+
+export const getOrderSchema = z.object({
+  params: z.object({
+    id: z.string(),
+  }),
+});
+
+export const getOrdersByCustomerIdSchema = z.object({
+  params: z.object({
+    customerId: z.string(),
+  }),
+});
+
+export const createTransactionSchema = z.object({
+  body: transactionSchema,
+});
+
+export const getTransactionSchema = z.object({
+  params: z.object({
+    id: z.string(),
+  }),
+});
+
+export const updateTransactionStatusSchema = z.object({
+  params: z.object({
+    id: z.string(),
+  }),
+  body: z.object({
+    status: z.enum(['pending', 'successful', 'failed']),
   }),
 });

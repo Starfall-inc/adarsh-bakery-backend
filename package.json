@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "commit": "cz",
     "release": "standard-version",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "console": "ts-node src/scripts/console.ts"
   },
   "repository": {
     "type": "git",
@@ -25,15 +26,21 @@
   },
   "homepage": "https://github.com/Starfall-inc/adarsh-bakery-backend#readme",
   "dependencies": {
+    "@types/inquirer": "^9.0.8",
+    "@types/inquirer-autocomplete-prompt": "^3.0.3",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
+    "chalk": "^5.4.1",
+    "cli-table3": "^0.6.5",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.0",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
+    "inquirer": "^12.8.2",
+    "inquirer-autocomplete-prompt": "^3.0.1",
     "jsonwebtoken": "^9.0.2",
     "minio": "^8.0.5",
-    "mongoose": "^8.16.4",
+    "mongoose": "^8.16.5",
     "morgan": "^1.10.1",
     "nodemon": "^3.1.10",
     "razorpay": "^2.9.6",

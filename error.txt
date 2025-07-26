@@ -1,0 +1,61 @@
+➜  backend git:(main) ✗ npm run console
+
+> backend@1.0.0 console
+> ts-node src/scripts/console.ts
+
+/home/keqing/Projects/adarsh-bakery.com/backend/node_modules/ts-node/src/index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/scripts/console.ts:653:63 - error TS2339: Property 'lastName' does not exist on type 'ObjectId & Record<"firstName", unknown>'.
+
+653           ? `${order.customerId.firstName} ${order.customerId.lastName} (${order.customerId.email})`
+                                                                  ~~~~~~~~
+src/scripts/console.ts:653:93 - error TS2339: Property 'email' does not exist on type 'ObjectId & Record<"firstName", unknown>'.
+
+653           ? `${order.customerId.firstName} ${order.customerId.lastName} (${order.customerId.email})`
+                                                                                                ~~~~~
+src/scripts/console.ts:655:50 - error TS18046: 'order._id' is of type 'unknown'.
+
+655       console.log(chalk.cyan.bold(`\n📦 Order #${order._id.toString()}`));
+                                                     ~~~~~~~~~
+src/scripts/console.ts:669:17 - error TS2339: Property 'createdAt' does not exist on type 'Document<unknown, {}, IOrder, {}> & IOrder & Required<{ _id: unknown; }> & { __v: number; }'.
+
+669       if (order.createdAt) {
+                    ~~~~~~~~~
+src/scripts/console.ts:670:53 - error TS2339: Property 'createdAt' does not exist on type 'Document<unknown, {}, IOrder, {}> & IOrder & Required<{ _id: unknown; }> & { __v: number; }'.
+
+670         console.log(chalk.gray(`Order date: ${order.createdAt.toLocaleDateString()}`));
+                                                        ~~~~~~~~~
+src/scripts/console.ts:694:19 - error TS18046: 'o._id' is of type 'unknown'.
+
+694         name: `#${o._id.toString()} - ${typeof o.customerId === 'object' && 'firstName' in o.customerId ? `${o.customerId.firstName} ${o.customerId.lastName}` : 'N/A'} | $${o.totalAmount.toFixed(2)} | ${o.status}`,
+                      ~~~~~
+src/scripts/console.ts:694:149 - error TS2339: Property 'lastName' does not exist on type 'ObjectId & Record<"firstName", unknown>'.
+
+694         name: `#${o._id.toString()} - ${typeof o.customerId === 'object' && 'firstName' in o.customerId ? `${o.customerId.firstName} ${o.customerId.lastName}` : 'N/A'} | $${o.totalAmount.toFixed(2)} | ${o.status}`,
+                                                                                                                                                        ~~~~~~~~
+src/scripts/console.ts:831:9 - error TS2869: Right operand of ?? is unreachable because the left operand is never nullish.
+
+831         tx.orderId?._id.toString().slice(0, 8) + '...' ?? 'N/A',
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    at createTSError (/home/keqing/Projects/adarsh-bakery.com/backend/node_modules/ts-node/src/index.ts:859:12)
+    at reportTSError (/home/keqing/Projects/adarsh-bakery.com/backend/node_modules/ts-node/src/index.ts:863:19)
+    at getOutput (/home/keqing/Projects/adarsh-bakery.com/backend/node_modules/ts-node/src/index.ts:1077:36)
+    at Object.compile (/home/keqing/Projects/adarsh-bakery.com/backend/node_modules/ts-node/src/index.ts:1433:41)
+    at Module.m._compile (/home/keqing/Projects/adarsh-bakery.com/backend/node_modules/ts-node/src/index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Object.require.extensions.<computed> [as .ts] (/home/keqing/Projects/adarsh-bakery.com/backend/node_modules/ts-node/src/index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1096:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12) {
+  diagnosticCodes: [
+    2339, 2339, 18046,
+    2339, 2339, 18046,
+    2339, 2869
+  ]
+}
+➜  backend git:(main) ✗ 
+➜  backend git:(main) ✗ 
+➜  backend git:(main) ✗ 

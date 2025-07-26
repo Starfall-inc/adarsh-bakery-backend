@@ -8,12 +8,15 @@ import { serverConfig } from './config/server.config';
 import productRoutes from './routes/product.routes';
 import categoryRoutes from './routes/category.routes';
 import customerRoutes from './routes/customer.routes';
+import orderRoutes from './routes/order.routes';
+import transactionRoutes from './routes/transaction.routes';
+import errorHandler from './middlewares/error.middleware';
 
 dotenv.config();
 
 const app = express();
 connectDB();
-app.use(cors());
+app.use(cors({ origin: process.env.CLIENT_ORIGIN }));
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.json());
@@ -26,6 +29,8 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/customers', customerRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/transactions', transactionRoutes);
 
 app.listen(serverConfig.port, () => {
   console.log('https://localhost:' + serverConfig.port);
