@@ -4,8 +4,8 @@ Handles all business logic related to product categories, interacting directly w
 
 ### Methods
 
-*   `getCategories()`: Retrieves all categories.
-*   `getCategoryBySlug(slug: string)`: Retrieves a single category by its slug.
-*   `createCategory(categoryData: CategoryInput)`: Creates a new category.
-*   `updateCategory(slug: string, categoryData: Partial<ICategory>)`: Updates an existing category by slug.
-*   `deleteCategory(slug: string)`: Deletes a category by slug.
+- `getCategories()`: Retrieves all categories.
+- `getCategoryBySlug(slug: string)`: Retrieves a single category by its slug.
+- `createCategory(categoryData: CategoryInput)`: Creates a new category.
+- `updateCategory(slug: string, categoryData: Partial<ICategory>)`: Updates an existing category by slug.
+- `deleteCategory(slug: string)`: Deletes a category by slug.

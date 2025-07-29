@@ -1,8 +1,11 @@
-
 import express from 'express';
 import TransactionController from '../controllers/transaction.controller';
 import validate from '../middlewares/validate.middleware';
-import { createTransactionSchema, getTransactionSchema, updateTransactionStatusSchema } from '../schemas/validate.schema';
+import {
+  createTransactionSchema,
+  getTransactionSchema,
+  updateTransactionStatusSchema,
+} from '../schemas/validate.schema';
 
 const router = express.Router();
 

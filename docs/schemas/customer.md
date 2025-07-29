@@ -15,13 +15,13 @@ export const customerSchema = z.object({
     z.object({
       address1: z.string(),
       address2: z.string(),
-    })
+    }),
   ),
   cart: z.array(
     z.object({
       productId: objectIdSchema,
       quantity: z.number().min(1),
-    })
+    }),
   ),
   lastLoginAt: z.date().optional(),
   isActive: z.boolean().optional(),

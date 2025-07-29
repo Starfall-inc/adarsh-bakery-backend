@@ -14,6 +14,7 @@ router.get('/', ProductController.getProducts);
 router.get('/search/:query', ProductController.searchProducts);
 router.get('/:sku', validate(getProductSchema), ProductController.getProductBySku);
 router.get('/category/:categorySlug', ProductController.getProductsByCategorySlug);
+router.get('/category/id/:id', ProductController.getProductsByCategoryId);
 
 router.post('/', validate(createProductSchema), ProductController.createProduct);
 router.put('/:sku', validate(updateProductSchema), ProductController.updateProduct);

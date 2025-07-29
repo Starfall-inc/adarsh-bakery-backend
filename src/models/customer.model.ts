@@ -13,19 +13,18 @@ export interface ICustomer extends Document {
   email: string;
   password: string;
   phoneNumber?: number;
-  shippingAddresses: {
-    address1: string;
-    address2: string;
-  }[];
+  shippingAddress?: string;
   cart: ICartItem[];
+  wishlist: mongoose.Types.ObjectId[];
   lastLoginAt?: Date;
   isActive: boolean;
-  orderHistory: mongoose.Types.ObjectId[]; // Array of Order IDs
+  orderHistory: mongoose.Types.ObjectId[];
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 const CartItemSchema = new Schema<ICartItem>(
   {
+    // 🔥 FIXED: Changed from mongoose.Types.ObjectId to Schema.Types.ObjectId
     productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
     quantity: { type: Number, required: true, min: 1, default: 1 },
   },
@@ -53,19 +52,21 @@ const CustomerSchema = new Schema<ICustomer>(
 
     orderHistory: [
       {
-        // Array of ObjectIds
-        type: mongoose.Types.ObjectId,
-        ref: 'Order', // Reference to the Order model
+        // 🔥 FIXED: Changed from mongoose.Types.ObjectId to Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: 'Order',
       },
     ],
 
-    shippingAddresses: [
+    shippingAddress: { type: String },
+    cart: [CartItemSchema],
+    wishlist: [
       {
-        address1: { type: String, required: true },
-        address2: { type: String, required: true },
+        // 🔥 FIXED: Changed from mongoose.Types.ObjectId to Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        ref: 'Product',
       },
     ],
-    cart: [CartItemSchema],
     lastLoginAt: { type: Date },
     isActive: { type: Boolean, default: true },
   },

@@ -15,6 +15,6 @@ interface ICategory extends Document {
 
 ### Key Fields
 
-*   `name`: Name of the category.
-*   `slug`: URL-friendly unique identifier for the category.
-*   `images`: Array of image URLs for the category.
+- `name`: Name of the category.
+- `slug`: URL-friendly unique identifier for the category.
+- `images`: Array of image URLs for the category.

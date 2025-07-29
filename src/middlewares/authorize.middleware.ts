@@ -10,7 +10,7 @@ const authorize = (allowedRoles: string[]) => {
       return res.status(403).json({ message: 'Access denied: No roles assigned.' });
     }
 
-    const hasPermission = allowedRoles.some(role => req.user?.roles.includes(role));
+    const hasPermission = allowedRoles.some((role) => req.user?.roles.includes(role));
 
     if (hasPermission) {
       next();

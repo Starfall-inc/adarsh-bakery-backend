@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-interface AuthenticatedRequest extends Request {
-  user?: any; // You might want to define a more specific user type
+export interface AuthRequest extends Request {
+  customer?: { id: string; email: string };
 }
 
-const auth = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+const auth = (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
 
@@ -16,8 +16,8 @@ const auth = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     if (!process.env.JWT_SECRET) {
       throw new Error('JWT_SECRET is not defined in environment variables.');
     }
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decodedToken;
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET) as { id: string; email: string };
+    req.customer = decodedToken;
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Authentication failed: Invalid token.' });

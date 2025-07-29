@@ -4,6 +4,6 @@ Manages the business logic for payment transactions, including creation and stat
 
 ### Methods
 
-*   `createTransaction(transactionData: TransactionInput)`: Creates a new transaction record.
-*   `getTransactionById(id: string)`: Retrieves a single transaction by its ID.
-*   `updateTransactionStatus(id: string, status: string)`: Updates the status of a transaction.
+- `createTransaction(transactionData: TransactionInput)`: Creates a new transaction record.
+- `getTransactionById(id: string)`: Retrieves a single transaction by its ID.
+- `updateTransactionStatus(id: string, status: string)`: Updates the status of a transaction.

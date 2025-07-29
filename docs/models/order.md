@@ -30,15 +30,15 @@ export interface IOrder extends Document {
 
 ### Key Fields
 
-*   `customerId`: Reference to the customer who placed the order.
-*   `items`: Array of products and their quantities/prices in the order.
-*   `totalAmount`: The total cost of the order.
-*   `shippingAddress`: Details for shipping the order.
-*   `status`: Current status of the order (e.g., pending, shipped).
-*   `transactionId`: Optional reference to the associated transaction.
+- `customerId`: Reference to the customer who placed the order.
+- `items`: Array of products and their quantities/prices in the order.
+- `totalAmount`: The total cost of the order.
+- `shippingAddress`: Details for shipping the order.
+- `status`: Current status of the order (e.g., pending, shipped).
+- `transactionId`: Optional reference to the associated transaction.
 
 ### Relationships
 
-*   `customerId`: Populated from the `Customer` model.
-*   `items.productId`: Populated from the `Product` model.
-*   `transactionId`: Populated from the `Transaction` model.
+- `customerId`: Populated from the `Customer` model.
+- `items.productId`: Populated from the `Product` model.
+- `transactionId`: Populated from the `Transaction` model.

@@ -52,6 +52,19 @@ class ProductService {
     }
   }
 
+  async getProductsByCategoryId(id: string) {
+    try {
+      const category = await Category.findOne({ _id: id });
+      if (!category) {
+        throw new NotFoundError('Category Not Found');
+      }
+      const products = await Product.find({ category: category._id });
+      return products;
+    } catch {
+      throw new Error('Failed to retrieve products');
+    }
+  }
+
   async searchProducts(query: string) {
     try {
       const products = await Product.find({

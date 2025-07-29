@@ -1,6 +1,6 @@
-
 import { Request, Response } from 'express';
 import OrderService from '../services/order.service';
+import { AuthRequest } from '../middlewares/auth.middleware';
 
 class OrderController {
   async createOrder(req: Request, res: Response) {
@@ -36,6 +36,18 @@ class OrderController {
       res.status(200).json(updatedOrder);
     } catch (error) {
       res.status(500).json({ message: `Failed to update order status for ${req.params.id}` });
+    }
+  }
+
+  async getMyOrders(req: AuthRequest, res: Response) {
+    try {
+      if (!req.customer) {
+        return res.status(401).json({ message: 'Authentication required' });
+      }
+      const orders = await OrderService.getOrdersByCustomerId(req.customer.id);
+      res.status(200).json({ orders });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message || 'Failed to fetch orders' });
     }
   }
 

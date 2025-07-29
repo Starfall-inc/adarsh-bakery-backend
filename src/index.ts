@@ -30,7 +30,10 @@ app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/orders', orderRoutes);
+import paymentRoutes from './routes/payment.routes';
+
 app.use('/api/transactions', transactionRoutes);
+app.use('/api/payments', paymentRoutes);
 
 app.listen(serverConfig.port, () => {
   console.log('https://localhost:' + serverConfig.port);

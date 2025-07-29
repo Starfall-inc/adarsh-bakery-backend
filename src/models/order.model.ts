@@ -10,20 +10,14 @@ export interface IOrder extends Document {
   customerId: Types.ObjectId;
   items: IOrderItem[];
   totalAmount: number;
-  shippingAddress: {
-    address1: string;
-    address2: string;
-    city: string;
-    state: string;
-    zip: string;
-    country: string;
-  };
+  shippingAddress: string;
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
-  transactionId?: Types.ObjectId; // Reference to the Transaction model
+  transactionId?: Types.ObjectId;
 }
 
 const OrderItemSchema = new Schema<IOrderItem>(
   {
+    // 🔥 FIXED: Changed from Types.ObjectId to Schema.Types.ObjectId
     productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
     quantity: { type: Number, required: true, min: 1 },
     price: { type: Number, required: true, min: 0 },
@@ -33,22 +27,17 @@ const OrderItemSchema = new Schema<IOrderItem>(
 
 const OrderSchema = new Schema<IOrder>(
   {
+    // 🔥 FIXED: Changed from Types.ObjectId to Schema.Types.ObjectId
     customerId: { type: Schema.Types.ObjectId, ref: 'Customer', required: true },
     items: { type: [OrderItemSchema], required: true },
     totalAmount: { type: Number, required: true, min: 0 },
-    shippingAddress: {
-      address1: { type: String, required: true },
-      address2: { type: String, required: true },
-      city: { type: String, required: true },
-      state: { type: String, required: true },
-      zip: { type: String, required: true },
-      country: { type: String, required: true },
-    },
+    shippingAddress: { type: String, required: true },
     status: {
       type: String,
       enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled'],
       default: 'pending',
     },
+    // 🔥 FIXED: Changed from Types.ObjectId to Schema.Types.ObjectId
     transactionId: { type: Schema.Types.ObjectId, ref: 'Transaction' },
   },
   { timestamps: true },

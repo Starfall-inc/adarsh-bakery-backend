@@ -4,6 +4,6 @@ Handles incoming HTTP requests related to payment transactions, orchestrating ca
 
 ### Methods
 
-*   `createTransaction(req, res)`: Handles POST requests to create a new transaction record.
-*   `getTransactionById(req, res)`: Handles GET requests to retrieve a single transaction by ID.
-*   `updateTransactionStatus(req, res)`: Handles PUT requests to update a transaction's status.
+- `createTransaction(req, res)`: Handles POST requests to create a new transaction record.
+- `getTransactionById(req, res)`: Handles GET requests to retrieve a single transaction by ID.
+- `updateTransactionStatus(req, res)`: Handles PUT requests to update a transaction's status.

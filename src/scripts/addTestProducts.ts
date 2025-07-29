@@ -22,7 +22,7 @@ const addTestProducts = async () => {
       {
         name: 'Test Product 2',
         description: 'This is a test product 2',
-        price: 20.50,
+        price: 20.5,
         sku: 'TP002',
         category: 'Another Test Category',
         imageUrl: 'http://example.com/image2.jpg',

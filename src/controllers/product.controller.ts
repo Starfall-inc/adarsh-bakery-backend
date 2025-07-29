@@ -29,6 +29,16 @@ class ProductController {
     }
   }
 
+  async getProductsByCategoryId(req: Request, res: Response) {
+    try {
+      const products = await ProductService.getProductsByCategoryId(req.params.id);
+      console.log(req.params.id);
+      res.status(200).json(products);
+    } catch (error) {
+      res.status(500).json({ message: 'Failed to fetch products by category' });
+    }
+  }
+
   async searchProducts(req: Request, res: Response) {
     try {
       const products = await ProductService.searchProducts(req.params.query);

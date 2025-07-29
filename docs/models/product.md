@@ -21,12 +21,12 @@ interface IProduct extends Document {
 
 ### Key Fields
 
-*   `sku`: Unique identifier for the product.
-*   `name`: Name of the product.
-*   `price`: Price of the product.
-*   `stock`: Available stock quantity.
-*   `category`: Reference to the associated category.
+- `sku`: Unique identifier for the product.
+- `name`: Name of the product.
+- `price`: Price of the product.
+- `stock`: Available stock quantity.
+- `category`: Reference to the associated category.
 
 ### Relationships
 
-*   `category`: Populated from the `Category` model.
+- `category`: Populated from the `Category` model.
