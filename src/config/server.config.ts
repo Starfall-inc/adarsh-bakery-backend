@@ -42,6 +42,6 @@ export const serverConfig: ServerConfig = {
   razorpay: {
     keyId: process.env.RAZORPAY_KEY_ID || 'XXXXXXXXXXX',
     keySecret: process.env.RAZORPAY_KEY_SECRET || 'XXXXXXXX',
-    callbackHookUrl: process.env.RAZORPAY_CALLBACK_URL || 'http://localhost:3000',
+    callbackHookUrl: process.env.RAZORPAY_CALLBACK_URL || 'http://192.168.0.105:3000',
   },
 };

@@ -7,14 +7,7 @@ export const customerSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
   phoneNumber: z.number().optional(),
-  shippingAddresses: z
-    .array(
-      z.object({
-        address1: z.string(),
-        address2: z.string(),
-      }),
-    )
-    .optional(),
+  shippingAddress: z.string().optional(),
   cart: z
     .array(
       z.object({

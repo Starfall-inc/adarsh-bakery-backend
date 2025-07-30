@@ -16,7 +16,23 @@ dotenv.config();
 
 const app = express();
 connectDB();
-app.use(cors({ origin: process.env.CLIENT_ORIGIN }));
+const allowedOrigins = ['http://localhost:5173', 'http://192.168.0.105:5173'];
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.json());
@@ -35,6 +51,6 @@ import paymentRoutes from './routes/payment.routes';
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/payments', paymentRoutes);
 
-app.listen(serverConfig.port, () => {
+app.listen(serverConfig.port, '0.0.0.0', () => {
   console.log('https://localhost:' + serverConfig.port);
 });

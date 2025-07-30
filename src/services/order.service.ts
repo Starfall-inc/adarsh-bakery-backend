@@ -1,13 +1,30 @@
 import Order, { IOrder } from '../models/order.model';
 import { OrderInput } from '../schemas/order.schema';
 import NotFoundError from '../errors/NotFoundError';
+import Product from '../models/product.model';
+import mongoose from 'mongoose';
 
 class OrderService {
   public async createOrder(orderData: OrderInput): Promise<IOrder> {
     try {
-      const order = await Order.create(orderData);
+      const order = new Order(orderData);
+
+      for (const item of order.items) {
+        const product = await Product.findById(item.productId);
+        if (!product) {
+          throw new Error(`Product with ID ${item.productId} not found`);
+        }
+        if (product.stock < item.quantity) {
+          throw new Error(`Not enough stock for product ${product.name}`);
+        }
+        product.stock -= item.quantity;
+        await product.save();
+      }
+
+      await order.save();
       return order;
     } catch (error) {
+      console.error("Error in createOrder:", error);
       throw new Error('Failed to create order');
     }
   }
