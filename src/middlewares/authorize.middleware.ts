@@ -1,18 +1,16 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
+import { AuthRequest } from './user/auth.middleware';
+import { UserRole } from '../models/user.model';
 
-interface AuthenticatedRequest extends Request {
-  user?: { roles: string[] };
-}
-
-const authorize = (allowedRoles: string[]) => {
-  return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
-    if (!req.user || !req.user.roles) {
+const authorize = (allowedRoles: UserRole[]) => {
+  return (req: AuthRequest, res: Response, next: NextFunction) => {
+    if (!req.user || !req.user.role) {
       return res.status(403).json({ message: 'Access denied: No roles assigned.' });
     }
 
-    const hasPermission = allowedRoles.some((role) => req.user?.roles.includes(role));
+    const hasPermission = allowedRoles.some((role) => req.user?.role.includes(role));
 
-    if (hasPermission) {
+    if (hasPermission || req.user.role === UserRole.Admin) {
       next();
     } else {
       return res.status(403).json({ message: 'Access denied: Insufficient permissions.' });

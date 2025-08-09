@@ -22,6 +22,7 @@ export interface IProduct extends Document {
 
   description: string;
   attributes?: Record<string, string>;
+  dietary: 'veg' | 'non-veg' | 'none';
 }
 
 // 🧬 Schema
@@ -41,6 +42,11 @@ export const ProductSchema = new Schema<IProduct>({
   category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
   description: { type: String },
   attributes: { type: Schema.Types.Mixed, default: {} },
+  dietary: {
+    type: String,
+    enum: ['veg', 'non-veg', 'none'],
+    default: 'veg',
+  },
 });
 
 // 🏗️ model

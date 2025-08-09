@@ -1,9 +1,6 @@
-import dotenv from 'dotenv';
 import mongoose, { Connection, MongooseError } from 'mongoose';
 import { serverConfig } from './server.config';
-// load the dot env configuration here (scoped to this file only i guess)
-
-dotenv.config();
+import logger from '../config/logger';
 
 // getting the mongoDB base string here from the env variable
 
@@ -29,12 +26,13 @@ const connectDB = async (): Promise<Connection> => {
     const conn = await mongoose.connect(MONGO_URI);
 
     // Log a success message if connection is established
-    // console.log(`MongoDB Connected: ${conn.connection.host}`);
+    logger.info(`MongoDB Connected: ${conn.connection.host}`);
 
     // Return the Mongoose connection object
     return conn.connection;
-  } catch (MongooseError) {
+  } catch (error: any) {
     // Log an error message if connection fails
+    logger.error(`MongoDB Connection Error: ${error.message}`);
     // Exit the process with a failure code
     process.exit(1);
   }

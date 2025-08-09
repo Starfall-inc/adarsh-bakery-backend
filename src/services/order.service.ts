@@ -64,6 +64,21 @@ class OrderService {
     }
   }
 
+  public async updateOrder(
+    id: string,
+    orderData: Partial<IOrder>,
+  ): Promise<IOrder | null> {
+    try {
+      const order = await Order.findByIdAndUpdate(id, orderData, { new: true });
+      if (!order) {
+        throw new NotFoundError('Order not found');
+      }
+      return order;
+    } catch (error) {
+      throw new Error('Failed to update order');
+    }
+  }
+
   public async getOrdersByCustomerId(customerId: string): Promise<IOrder[]> {
     try {
       return await Order.find({ customerId }).populate('items.productId');

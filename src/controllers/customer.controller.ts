@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import CustomerService from '../services/customer.service';
 import { CreateCustomerInput, LoginCustomerInput } from '../schemas/customer.schema';
 import { AuthRequest } from '../middlewares/auth.middleware';
+import jwt from 'jsonwebtoken';
 
 class CustomerController {
   // Auth
@@ -18,7 +19,8 @@ class CustomerController {
         firstName,
         lastName,
       });
-      res.status(201).json({ customer, token });
+      const decodedToken = jwt.decode(token) as { exp: number };
+      res.status(201).json({ customer, token, expiresAt: decodedToken.exp });
     } catch (error: any) {
       res.status(500).json({ message: error.message || 'Failed to sign up customer' });
     }
@@ -31,7 +33,8 @@ class CustomerController {
       if (!result) {
         return res.status(401).json({ message: 'Invalid credentials' });
       }
-      res.status(200).json(result);
+      const decodedToken = jwt.decode(result.token) as { exp: number };
+      res.status(200).json({ ...result, expiresAt: decodedToken.exp });
     } catch (error: any) {
       res.status(500).json({ message: error.message || 'Failed to login customer' });
     }

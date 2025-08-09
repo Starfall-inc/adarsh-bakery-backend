@@ -121,3 +121,36 @@ export const updateTransactionStatusSchema = z.object({
     status: z.enum(['pending', 'successful', 'failed']),
   }),
 });
+
+export const bannerZodSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  title: z.string().min(1, 'Title is required'),
+  subtitle: z.string().min(1, 'Subtitle is required'),
+  ctaText: z.string().min(1, 'CTA Text is required'),
+  linkUrl: z.string().url('Invalid URL format').optional(),
+  isActive: z.boolean().optional(),
+  order: z.number().int().min(0, 'Order must be a non-negative integer'),
+});
+
+export const createBannerSchema = z.object({
+  body: bannerZodSchema,
+});
+
+export const updateBannerSchema = z.object({
+  body: bannerZodSchema.partial(),
+  params: z.object({
+    id: z.string(),
+  }),
+});
+
+export const deleteBannerSchema = z.object({
+  params: z.object({
+    id: z.string(),
+  }),
+});
+
+export const getBannerSchema = z.object({
+  params: z.object({
+    id: z.string(),
+  }),
+});
