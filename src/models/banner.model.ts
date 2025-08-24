@@ -24,7 +24,7 @@ const BannerSchema = new Schema<IBanner>(
     isActive: { type: Boolean, default: true },
     order: { type: Number, required: true, unique: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Banner = model<IBanner>('Banner', BannerSchema);

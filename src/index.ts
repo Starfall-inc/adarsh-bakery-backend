@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
@@ -26,16 +27,20 @@ dotenv.config();
 
 const app = express();
 connectDB();
-const allowedOrigins = ['http://localhost:5173', 'http://192.168.0.105:5173', 'http://localhost:5171'];
+
+const allowedOrigins = [
+  ...(process.env.CLIENT_ORIGIN?.split(',').map((origin) => origin.trim()) || []),
+  process.env.ADMIN_PANEL_URL,
+].filter(Boolean) as string[];
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   if (origin && allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
   }
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.header('Access-Control-Allow-Credentials', 'true');
 
   if (req.method === 'OPTIONS') {
     return res.sendStatus(200);

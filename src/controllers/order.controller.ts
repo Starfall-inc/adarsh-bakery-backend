@@ -7,7 +7,7 @@ class OrderController {
   async createOrder(req: Request, res: Response) {
     try {
       const newOrder = await OrderService.createOrder(req.body);
-
+      console.log('processing order');
       // Send ntfy notification
       try {
         const orderLink = `${process.env.ADMIN_PANEL_URL}/orders/${newOrder._id}`;
@@ -21,6 +21,8 @@ class OrderController {
         if (!process.env.NTFY_TOPIC) {
           throw new Error('NTFY_TOPIC environment variable is not defined');
         }
+
+        console.log('sending notifications to ' + process.env.NTFY_TOPIC);
         await axios.post(process.env.NTFY_TOPIC as string, message, {
           headers: {
             Title: 'New Order at Adarsh Bakery',

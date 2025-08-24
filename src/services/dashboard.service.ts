@@ -19,7 +19,11 @@ class DashboardService {
       { $group: { _id: null, totalSales: { $sum: '$totalAmount' } } },
     ]);
 
-    const recentOrders = await Order.find().sort({ createdAt: -1 }).limit(5).populate('customerId').populate('items.productId');
+    const recentOrders = await Order.find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .populate('customerId')
+      .populate('items.productId');
 
     const lowStockProducts = await Product.find({ stock: { $lt: 10 } }).limit(5);
 

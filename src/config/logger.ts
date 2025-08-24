@@ -1,4 +1,3 @@
-
 import winston from 'winston';
 
 const { combine, timestamp, printf, colorize, align } = winston.format;

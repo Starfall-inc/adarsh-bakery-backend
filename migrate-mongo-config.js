@@ -7,13 +7,13 @@ const config = {
     options: {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    }
+    },
   },
-  migrationsDir: "migrations",
-  changelogCollectionName: "changelog",
-  lockCollectionName: "changelog_lock",
+  migrationsDir: 'migrations',
+  changelogCollectionName: 'changelog',
+  lockCollectionName: 'changelog_lock',
   lockTtl: 0,
-  migrationFileExtension: ".js",
+  migrationFileExtension: '.js',
   useFileHash: false,
   moduleSystem: 'commonjs',
 };

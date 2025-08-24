@@ -1,4 +1,3 @@
-
 import { Router } from 'express';
 import DashboardController from '../../controllers/dashboard.controller';
 import auth from '../../middlewares/user/auth.middleware';
