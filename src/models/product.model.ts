@@ -1,5 +1,6 @@
 import { Document, Schema, model } from 'mongoose';
 import { ICategory } from './category.model';
+import { replaceBaseUrl } from '../utils/replaceUrl';
 
 // 🧾 Document
 // here document is an interface, its like blueprint
@@ -48,6 +49,14 @@ export const ProductSchema = new Schema<IProduct>({
     default: 'veg',
   },
 });
+
+// Product
+ProductSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  obj.image = replaceBaseUrl(obj.image);
+  console.log(obj);
+  return obj;
+};
 
 // 🏗️ model
 

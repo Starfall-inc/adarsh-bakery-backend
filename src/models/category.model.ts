@@ -1,4 +1,6 @@
 import { Document, Schema, model } from 'mongoose';
+import { categorySchema } from '../schemas/category.schema';
+import { replaceBaseUrl } from '../utils/replaceUrl';
 
 /**
  * @typedef {object} Category
@@ -23,6 +25,14 @@ export const CategorySchema = new Schema<ICategory>(
   },
   { timestamps: true },
 );
+
+// Category
+CategorySchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  obj.images = replaceBaseUrl(obj.images);
+  console.log(obj);
+  return obj;
+};
 
 const Category = model<ICategory>('Category', CategorySchema);
 

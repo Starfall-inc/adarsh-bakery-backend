@@ -1,4 +1,5 @@
 import { Document, Schema, model } from 'mongoose';
+import { replaceBaseUrl } from '../utils/replaceUrl';
 
 export interface IBanner extends Document {
   name: string;
@@ -26,6 +27,13 @@ const BannerSchema = new Schema<IBanner>(
   },
   { timestamps: true },
 );
+
+// Banner
+BannerSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  obj.imageUrl = replaceBaseUrl(obj.imageUrl);
+  return obj;
+};
 
 const Banner = model<IBanner>('Banner', BannerSchema);
 
