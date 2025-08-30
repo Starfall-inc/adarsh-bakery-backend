@@ -51,7 +51,7 @@ jobs:
 
       - name: Push Docker image
         run: |
-          IMAGE_ID=ghcr.io/Starfall-inc/adarsh-bakery-backend
+          IMAGE_ID=ghcr.io/starfall-inc/adarsh-bakery-backend
           VERSION=${{ github.sha }}
           docker push $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:latest
@@ -62,7 +62,7 @@ jobs:
     steps:
       - name: Pull latest image
         run: |
-          IMAGE_ID=ghcr.io/Starfall-inc/adarsh-bakery-backend
+          IMAGE_ID=ghcr.io/starfall-inc/adarsh-bakery-backend
           VERSION=${{ github.sha }}
           echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
           docker pull $IMAGE_ID:$VERSION
