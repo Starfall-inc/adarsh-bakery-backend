@@ -44,7 +44,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          IMAGE_ID=ghcr.io/Starfall-inc/adarsh-bakery-backend
+          IMAGE_ID=ghcr.io/starfall-inc/adarsh-bakery-backend
           VERSION=${{ github.sha }}
           echo "Building $IMAGE_ID:$VERSION"
           docker build -t $IMAGE_ID:$VERSION -t $IMAGE_ID:latest .
