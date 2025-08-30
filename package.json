@@ -11,7 +11,6 @@
     "format": "prettier --write .",
     "commit": "cz",
     "release": "standard-version",
-    "prepare": "husky install",
     "console": "ts-node src/scripts/console.ts",
     "migrate": "migrate-mongo up",
     "migrate:down": "migrate-mongo down"
