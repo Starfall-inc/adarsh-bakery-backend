@@ -93,6 +93,7 @@ class UserController {
   public async getSetupStatus(req: Request, res: Response): Promise<void> {
     try {
       const userCount = await UserService.getUserCount();
+      console.log('User count:', userCount);
       res.status(200).json({ setupNeeded: userCount === 0 });
     } catch (error) {
       res.status(500).json({ message: 'Error checking setup status' });
