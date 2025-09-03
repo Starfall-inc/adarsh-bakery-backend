@@ -14,6 +14,21 @@ class MinioService {
     });
   }
 
+  public async ensureBucketExists(bucketName: string): Promise<void> {
+    try {
+      const exists = await this.minioClient.bucketExists(bucketName);
+      if(!exists){
+        await this.minioClient.makeBucket(bucketName, "in-east-2");
+        console.log("Bucket created successfully");
+      } else {
+        console.log("Bucket already exists")
+      }
+    } catch(error){
+      console.error('Error creating bucket:', error);
+      throw new Error('Failed to create bucket');
+    }
+  }
+
   public async uploadFile(bucketName: string, objectName: string, filePath: string): Promise<string> {
     try {
       await this.minioClient.fPutObject(bucketName, objectName, filePath, {});

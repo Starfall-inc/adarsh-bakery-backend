@@ -22,11 +22,12 @@ import paymentRoutes from './routes/payment.routes';
 import errorHandler from './middlewares/error.middleware';
 import bannerRoutes from './routes/banner.routes';
 import adminBannerRoutes from './routes/admin/banner.routes';
+import minioService from './services/minio.service';   // ⬅️ Import MinIO service
+import { minioConfig } from './config/minio.config';
 
 dotenv.config();
 
 const app = express();
-connectDB();
 
 const allowedOrigins = [
   ...(process.env.CLIENT_ORIGIN?.split(',').map((origin) => origin.trim()) || []),
@@ -82,6 +83,19 @@ app.use('/api/payments', paymentRoutes);
 
 app.use(errorHandler);
 
-app.listen(serverConfig.port, '0.0.0.0', () => {
-  logger.info(`Server listening on port ${serverConfig.port}`);
-});
+// --- Startup wrapper ---
+async function bootstrap() {
+  try {
+    await connectDB();
+    await minioService.ensureBucketExists(minioConfig.bucket);   
+
+    app.listen(serverConfig.port, '0.0.0.0', () => {
+      logger.info(`🚀 Server listening on port ${serverConfig.port}`);
+    });
+  } catch (err) {
+    logger.error('❌ Startup failed: ' + err);
+    process.exit(1);
+  }
+}
+
+bootstrap();
